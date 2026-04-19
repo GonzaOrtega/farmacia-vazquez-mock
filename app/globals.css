@@ -1,26 +1,260 @@
 @import "tailwindcss";
 
+/* =========================================================================
+   Farmacia Vázquez — PRO design tokens
+   Ported from pro-styles.css (restrained, clinical-warm variant)
+   ========================================================================= */
+
+@theme {
+  --color-pro-primary: #5c1a6e;
+  --color-pro-primary-50: #f7f2f9;
+  --color-pro-primary-100: #efe5f2;
+  --color-pro-primary-600: #7b2d8e;
+  --color-pro-accent: #00a651;
+  --color-pro-accent-50: #e8f6ee;
+  --color-pro-warn: #b45309;
+  --color-pro-magenta: #c2185b;
+  --color-pro-ink: #1a1320;
+  --color-pro-ink-2: #4a3d54;
+  --color-pro-muted: #7a7185;
+  --color-pro-line: #eae4ee;
+  --color-pro-line-2: #f1ecf4;
+  --color-pro-bg: #fafafb;
+  --color-pro-cream: #fbf7f3;
+  --color-pro-white: #ffffff;
+
+  --font-sans: var(--font-inter), -apple-system, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --pro-primary: #5c1a6e;
+  --pro-primary-50: #f7f2f9;
+  --pro-primary-100: #efe5f2;
+  --pro-primary-600: #7b2d8e;
+  --pro-accent: #00a651;
+  --pro-accent-50: #e8f6ee;
+  --pro-magenta: #c2185b;
+  --pro-ink: #1a1320;
+  --pro-ink-2: #4a3d54;
+  --pro-muted: #7a7185;
+  --pro-line: #eae4ee;
+  --pro-line-2: #f1ecf4;
+  --pro-bg: #fafafb;
+  --pro-cream: #fbf7f3;
+  --pro-white: #ffffff;
+  --pro-shadow-sm: 0 1px 2px rgba(26, 19, 32, 0.06);
+  --pro-shadow-md: 0 4px 16px rgba(26, 19, 32, 0.08);
+  --pro-shadow-lg: 0 12px 32px rgba(26, 19, 32, 0.1);
+  --pro-radius-sm: 6px;
+  --pro-radius-md: 10px;
+  --pro-radius-lg: 16px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html,
+body {
+  background: var(--pro-bg);
+  color: var(--pro-ink);
+  font-family: var(--font-inter), -apple-system, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.005em;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.pro-serif {
+  font-family: var(--font-instrument-serif), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.pro-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+  letter-spacing: -0.005em;
+}
+.pro-btn-primary {
+  background: var(--pro-primary);
+  color: #fff;
+}
+.pro-btn-primary:hover {
+  background: var(--pro-primary-600);
+}
+.pro-btn-secondary {
+  background: var(--pro-white);
+  color: var(--pro-ink);
+  border-color: var(--pro-line);
+}
+.pro-btn-secondary:hover {
+  border-color: var(--pro-primary);
+  color: var(--pro-primary);
+}
+.pro-btn-ghost {
+  background: transparent;
+  color: var(--pro-ink);
+  padding: 10px 14px;
+}
+.pro-btn-ghost:hover {
+  background: var(--pro-primary-50);
+}
+
+.pro-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--pro-primary-50);
+  color: var(--pro-primary);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+.pro-chip-green {
+  background: var(--pro-accent-50);
+  color: #046b3a;
+}
+
+.pro-card {
+  background: var(--pro-white);
+  border: 1px solid var(--pro-line);
+  border-radius: var(--pro-radius-lg);
+  transition: all 0.2s ease;
+}
+.pro-card:hover {
+  border-color: #d8cce0;
+  box-shadow: var(--pro-shadow-md);
+}
+
+.pro-scroll::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.pro-scroll::-webkit-scrollbar-thumb {
+  background: var(--pro-line);
+  border-radius: 999px;
+}
+
+.pro-divider {
+  height: 1px;
+  background: var(--pro-line);
+}
+
+@keyframes pro-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
+.pro-rise {
+  animation: pro-rise 0.5s ease both;
+}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes pro-bump {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.18);
+  }
+}
+.pro-bump {
+  animation: pro-bump 0.35s ease;
+}
+
+.pro-input {
+  width: 100%;
+  background: var(--pro-white);
+  border: 1px solid var(--pro-line);
+  padding: 12px 14px;
+  border-radius: 10px;
+  font: 14px/1.3 var(--font-inter), sans-serif;
+  color: var(--pro-ink);
+  transition: border-color 0.15s;
+}
+.pro-input:focus {
+  outline: none;
+  border-color: var(--pro-primary);
+  box-shadow: 0 0 0 3px var(--pro-primary-50);
+}
+
+.pro-cat {
+  transition: all 0.18s ease;
+  cursor: pointer;
+}
+.pro-cat:hover {
+  transform: translateY(-2px);
+  border-color: var(--pro-primary);
+}
+
+.pro-trust {
+  background: var(--pro-cream);
+  border-top: 1px solid var(--pro-line);
+  border-bottom: 1px solid var(--pro-line);
+}
+
+.pro-img-bg {
+  background: linear-gradient(180deg, #fbf7f3 0%, #f4eef7 100%);
+}
+
+.pro-promo-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pro-dots {
+  background-image: radial-gradient(
+    circle,
+    rgba(92, 26, 110, 0.12) 1px,
+    transparent 1px
+  );
+  background-size: 18px 18px;
+}
+
+input[type="range"].pro-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: var(--pro-line);
+  border-radius: 999px;
+  outline: none;
+}
+input[type="range"].pro-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--pro-primary);
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px var(--pro-line);
+}
+input[type="range"].pro-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--pro-primary);
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px var(--pro-line);
 }
