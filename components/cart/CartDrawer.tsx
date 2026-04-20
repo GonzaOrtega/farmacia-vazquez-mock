@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import { ProductArt } from "@/components/atoms/ProductArt";
 import { IconArrow, IconCart, IconClose, IconMinus, IconPlus } from "@/components/atoms/Icon";
 import { getProduct } from "@/lib/data/products";
@@ -240,9 +241,14 @@ export function CartDrawer() {
             <div style={{ fontSize: 11, color: "#046B3A", marginBottom: 14 }}>
               o 3 cuotas de {fmtPrice(Math.round(cart.subtotal / 3))} sin interés
             </div>
-            <button className="pro-btn pro-btn-primary" style={{ width: "100%", padding: "14px" }}>
+            <Link
+              href="/checkout"
+              onClick={() => cart.setOpen(false)}
+              className="pro-btn pro-btn-primary no-underline"
+              style={{ width: "100%", padding: "14px", justifyContent: "center" }}
+            >
               Finalizar compra <IconArrow size={16} />
-            </button>
+            </Link>
           </div>
         )}
       </div>

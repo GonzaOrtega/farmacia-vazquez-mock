@@ -3,6 +3,7 @@ import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/components/cart/CartProvider";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { FavoritesProvider } from "@/components/favorites/FavoritesProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileTabBar } from "@/components/layout/MobileTabBar";
@@ -35,11 +36,13 @@ export default function RootLayout({
     <html lang="es" className={`${inter.variable} ${instrumentSerif.variable} antialiased`}>
       <body className="min-h-screen flex flex-col">
         <CartProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <MobileTabBar />
-          <CartDrawer />
+          <FavoritesProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <MobileTabBar />
+            <CartDrawer />
+          </FavoritesProvider>
         </CartProvider>
       </body>
     </html>

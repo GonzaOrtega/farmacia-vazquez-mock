@@ -15,9 +15,11 @@ import {
 } from "@/components/atoms/Icon";
 import { categories } from "@/lib/data/categories";
 import { useCart } from "@/components/cart/useCart";
+import { useFavorites } from "@/components/favorites/useFavorites";
 
 export function Header() {
   const cart = useCart();
+  const fav = useFavorites();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (
@@ -73,22 +75,42 @@ export function Header() {
           </button>
         </div>
         <div className="flex items-center gap-1">
-          <button
-            type="button"
-            className="pro-btn pro-btn-ghost flex-col gap-0.5"
+          <Link
+            href="/cuenta"
+            className="pro-btn pro-btn-ghost flex-col gap-0.5 no-underline"
             style={{ padding: "10px 14px", fontSize: 11 }}
           >
             <IconUser size={18} />
             <span className="text-[10px] font-medium">Mi cuenta</span>
-          </button>
-          <button
-            type="button"
-            className="pro-btn pro-btn-ghost flex-col gap-0.5"
+          </Link>
+          <Link
+            href="/favoritos"
+            className="pro-btn pro-btn-ghost flex-col gap-0.5 no-underline relative"
             style={{ padding: "10px 14px", fontSize: 11 }}
           >
-            <IconHeart size={18} />
+            <span style={{ position: "relative", display: "inline-flex" }}>
+              <IconHeart size={18} stroke={fav.count > 0 ? "#C2185B" : undefined} fill={fav.count > 0 ? "#C2185B" : "none"} />
+              {fav.count > 0 && (
+                <span
+                  style={{
+                    position: "absolute",
+                    top: -6,
+                    right: -8,
+                    background: "#C2185B",
+                    color: "#fff",
+                    fontSize: 10,
+                    padding: "1px 5px",
+                    borderRadius: 999,
+                    fontWeight: 700,
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {fav.count}
+                </span>
+              )}
+            </span>
             <span className="text-[10px] font-medium">Favoritos</span>
-          </button>
+          </Link>
           <button
             type="button"
             onClick={() => cart.setOpen(true)}
@@ -147,13 +169,31 @@ export function Header() {
             <Logo size="sm" />
           </Link>
         </div>
-        <button
-          type="button"
+        <Link
+          href="/favoritos"
           aria-label="Favoritos"
-          className="bg-transparent border-none cursor-pointer text-[color:var(--pro-ink)]"
+          className="cursor-pointer text-[color:var(--pro-ink)] relative no-underline"
+          style={{ display: "inline-flex" }}
         >
-          <IconHeart size={20} />
-        </button>
+          <IconHeart size={20} stroke={fav.count > 0 ? "#C2185B" : undefined} fill={fav.count > 0 ? "#C2185B" : "none"} />
+          {fav.count > 0 && (
+            <span
+              style={{
+                position: "absolute",
+                top: -4,
+                right: -6,
+                background: "#C2185B",
+                color: "#fff",
+                fontSize: 10,
+                padding: "1px 5px",
+                borderRadius: 999,
+                fontWeight: 700,
+              }}
+            >
+              {fav.count}
+            </span>
+          )}
+        </Link>
         <button
           type="button"
           onClick={() => cart.setOpen(true)}

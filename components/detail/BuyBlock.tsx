@@ -12,6 +12,7 @@ import {
   IconTruck,
 } from "@/components/atoms/Icon";
 import { useCart } from "@/components/cart/useCart";
+import { useFavorites } from "@/components/favorites/useFavorites";
 import { fmtPrice } from "@/lib/format";
 import type { Product } from "@/types/product";
 
@@ -21,6 +22,8 @@ interface Props {
 
 export function BuyBlock({ p }: Props) {
   const cart = useCart();
+  const favs = useFavorites();
+  const fav = favs.has(p.id);
   const [qty, setQty] = useState(1);
   const [variant, setVariant] = useState(0);
   const [added, setAdded] = useState(false);
@@ -241,8 +244,18 @@ export function BuyBlock({ p }: Props) {
           )}
         </button>
       </div>
-      <button type="button" className="pro-btn pro-btn-secondary mt-2 w-full">
-        <IconHeart size={14} /> Guardar en favoritos
+      <button
+        type="button"
+        onClick={() => favs.toggle(p.id)}
+        className="pro-btn pro-btn-secondary mt-2 w-full"
+        style={fav ? { color: "#C2185B", borderColor: "#C2185B" } : undefined}
+      >
+        <IconHeart
+          size={14}
+          stroke={fav ? "#C2185B" : undefined}
+          fill={fav ? "#C2185B" : "none"}
+        />
+        {fav ? "Guardado en favoritos" : "Guardar en favoritos"}
       </button>
 
       <div

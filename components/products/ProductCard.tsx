@@ -5,6 +5,7 @@ import { ProductArt } from "@/components/atoms/ProductArt";
 import { IconCheck, IconHeart, IconPlus, IconRx, IconStar } from "@/components/atoms/Icon";
 import { fmtPrice } from "@/lib/format";
 import { useCart } from "@/components/cart/useCart";
+import { useFavorites } from "@/components/favorites/useFavorites";
 import type { Product } from "@/types/product";
 
 interface Props {
@@ -13,8 +14,9 @@ interface Props {
 
 export function ProductCard({ p }: Props) {
   const cart = useCart();
+  const favs = useFavorites();
+  const fav = favs.has(p.id);
   const [added, setAdded] = useState(false);
-  const [fav, setFav] = useState(false);
 
   const handleAdd = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -25,7 +27,8 @@ export function ProductCard({ p }: Props) {
 
   const toggleFav = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setFav((v) => !v);
+    e.preventDefault();
+    favs.toggle(p.id);
   };
 
   return (
