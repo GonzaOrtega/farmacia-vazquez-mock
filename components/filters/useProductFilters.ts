@@ -35,7 +35,7 @@ type Action =
   | { type: "setQuery"; value: string }
   | { type: "reset" };
 
-function reducer(state: FilterState, action: Action): FilterState {
+export function reducer(state: FilterState, action: Action): FilterState {
   switch (action.type) {
     case "setCat":
       return { ...state, cat: action.cat };
@@ -64,7 +64,7 @@ function reducer(state: FilterState, action: Action): FilterState {
   }
 }
 
-function defaultState(cat: string): FilterState {
+export function defaultState(cat: string): FilterState {
   return {
     cat,
     brands: [],
@@ -89,7 +89,7 @@ export function activeFilterCount(f: FilterState): number {
   );
 }
 
-function applyFilters(list: Product[], f: FilterState): Product[] {
+export function applyFilters(list: Product[], f: FilterState): Product[] {
   let out = list.slice();
   if (f.cat !== "all") out = out.filter((p) => p.cat === f.cat);
   if (f.brands.length) out = out.filter((p) => f.brands.includes(p.brand));
