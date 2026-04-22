@@ -89,6 +89,14 @@ export function activeFilterCount(f: FilterState): number {
   );
 }
 
+const comparators: Record<Exclude<SortKey, "relevance">, (a: Product, b: Product) => number> = {
+  "price-asc":  (a, b) => a.price - b.price,
+  "price-desc": (a, b) => b.price - a.price,
+  "rating":     (a, b) => b.rating - a.rating,
+  "reviews":    (a, b) => b.reviews - a.reviews,
+  "discount":   (a, b) => ((b.old ?? b.price) - b.price) - ((a.old ?? a.price) - a.price),
+};
+
 export function applyFilters(list: Product[], f: FilterState): Product[] {
   let out = list.slice();
   if (f.cat !== "all") out = out.filter((p) => p.cat === f.cat);
@@ -106,17 +114,7 @@ export function applyFilters(list: Product[], f: FilterState): Product[] {
     );
   }
 
-  if (f.sort === "price-asc") out.sort((a, b) => a.price - b.price);
-  else if (f.sort === "price-desc") out.sort((a, b) => b.price - a.price);
-  else if (f.sort === "rating") out.sort((a, b) => b.rating - a.rating);
-  else if (f.sort === "reviews") out.sort((a, b) => b.reviews - a.reviews);
-  else if (f.sort === "discount") {
-    out.sort((a, b) => {
-      const da = (a.old ?? a.price) - a.price;
-      const db = (b.old ?? b.price) - b.price;
-      return db - da;
-    });
-  }
+  if (f.sort !== "relevance") out.sort(comparators[f.sort]);
   return out;
 }
 
