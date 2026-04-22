@@ -8,11 +8,14 @@ import { getProduct } from "@/lib/data/products";
 import { fmtPrice } from "@/lib/format";
 import { useCart } from "./useCart";
 import { useFocusTrap } from "./useFocusTrap";
+import { useAuth } from "@/components/auth/useAuth";
 
 export function CartDrawer() {
   const cart = useCart();
+  const auth = useAuth();
   const dialogRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
+  const checkoutHref = auth.user ? "/checkout" : "/ingresar?next=%2Fcheckout";
 
   useEffect(() => {
     if (!cart.open) return;
@@ -255,7 +258,7 @@ export function CartDrawer() {
               o 3 cuotas de {fmtPrice(Math.round(cart.subtotal / 3))} sin interés
             </div>
             <Link
-              href="/checkout"
+              href={checkoutHref}
               onClick={() => cart.setOpen(false)}
               className="pro-btn pro-btn-primary no-underline"
               style={{ width: "100%", padding: "14px", justifyContent: "center" }}

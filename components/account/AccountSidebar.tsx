@@ -1,6 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { IconArrow } from "@/components/atoms/Icon";
+import { useAuth } from "@/components/auth/useAuth";
 
 export type AccountSection = "perfil" | "pedidos" | "direcciones" | "recetas";
 
@@ -17,6 +19,12 @@ interface Props {
 }
 
 export function AccountSidebar({ active, onChange }: Props) {
+  const auth = useAuth();
+  const router = useRouter();
+  const handleLogout = () => {
+    auth.logout();
+    router.push("/");
+  };
   return (
     <>
       {/* Desktop: vertical card list */}
@@ -52,6 +60,7 @@ export function AccountSidebar({ active, onChange }: Props) {
         </div>
         <button
           type="button"
+          onClick={handleLogout}
           className="pro-btn pro-btn-ghost w-full mt-3 justify-start"
           style={{ padding: "12px 14px", fontSize: 13, color: "var(--pro-muted)" }}
         >

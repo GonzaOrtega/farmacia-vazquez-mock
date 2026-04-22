@@ -7,6 +7,13 @@ export interface User {
   memberSince: string;
 }
 
+export interface AuthUser {
+  firstName: string;
+  lastName: string;
+  email: string;
+  memberSince: string;
+}
+
 export interface Address {
   id: string;
   label: string;

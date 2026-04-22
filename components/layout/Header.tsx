@@ -16,11 +16,19 @@ import {
 import { categories } from "@/lib/data/categories";
 import { useCart } from "@/components/cart/useCart";
 import { useFavorites } from "@/components/favorites/useFavorites";
+import { useAuth } from "@/components/auth/useAuth";
 
 export function Header() {
   const cart = useCart();
   const fav = useFavorites();
+  const auth = useAuth();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  const accountHref = auth.user ? "/cuenta" : "/ingresar";
+  const accountLabel = auth.user ? "Mi cuenta" : "Ingresar";
+  const accountAriaLabel = auth.user
+    ? `Mi cuenta, ${auth.user.firstName}`
+    : "Ingresar a tu cuenta";
 
   return (
     <header className="sticky top-0 z-20 bg-white">
@@ -80,12 +88,13 @@ export function Header() {
         </div>
         <div className="flex items-center gap-1">
           <Link
-            href="/cuenta"
+            href={accountHref}
+            aria-label={accountAriaLabel}
             className="pro-btn pro-btn-ghost flex-col gap-0.5 no-underline"
             style={{ padding: "10px 14px", fontSize: 11 }}
           >
             <IconUser size={18} />
-            <span className="text-[10px] font-medium">Mi cuenta</span>
+            <span className="text-[10px] font-medium">{accountLabel}</span>
           </Link>
           <Link
             href="/favoritos"

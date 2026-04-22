@@ -6,6 +6,7 @@ import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { IconArrow, IconCheck, IconPlus, IconRx } from "@/components/atoms/Icon";
 import { AccountSidebar, type AccountSection } from "@/components/account/AccountSidebar";
 import { OrderCard } from "@/components/account/OrderCard";
+import { useRequireAuth } from "@/components/auth/useRequireAuth";
 import { mockAddresses, mockOrders, mockUser } from "@/lib/data/account";
 import type { Address } from "@/types/user";
 
@@ -15,7 +16,18 @@ const crumbs = [
 ];
 
 export function AccountView() {
+  const auth = useRequireAuth("/cuenta");
   const [section, setSection] = useState<AccountSection>("perfil");
+
+  if (!auth.hydrated || !auth.user) {
+    return (
+      <div className="text-center py-16 text-[14px]" style={{ color: "#7A7185" }}>
+        Verificando tu sesión…
+      </div>
+    );
+  }
+
+  const displayName = auth.user.firstName || mockUser.firstName;
 
   return (
     <>
@@ -26,7 +38,7 @@ export function AccountView() {
             Mi cuenta
           </div>
           <h1 className="pro-serif text-[32px] md:text-[44px] leading-[1.05] tracking-[-0.02em]" style={{ color: "#1A1320" }}>
-            Hola, {mockUser.firstName}
+            Hola, {displayName}
           </h1>
           <p className="text-[14px] md:text-[15px] mt-1.5" style={{ color: "#4A3D54" }}>
             Administrá tus datos, pedidos y direcciones desde un solo lugar.

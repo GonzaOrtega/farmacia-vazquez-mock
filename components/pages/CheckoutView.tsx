@@ -8,6 +8,7 @@ import { CheckoutForm } from "@/components/checkout/CheckoutForm";
 import { CheckoutSuccess } from "@/components/checkout/CheckoutSuccess";
 import { OrderSummary } from "@/components/checkout/OrderSummary";
 import { useCart } from "@/components/cart/useCart";
+import { useRequireAuth } from "@/components/auth/useRequireAuth";
 import type { CartItem } from "@/types/cart";
 
 const crumbs = [
@@ -32,6 +33,7 @@ function etaLabel() {
 }
 
 export function CheckoutView() {
+  const auth = useRequireAuth("/checkout");
   const cart = useCart();
   const [mounted, setMounted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -66,6 +68,7 @@ export function CheckoutView() {
   };
 
   const isEmpty = mounted && cart.items.length === 0 && !success;
+  const awaitingAuth = !auth.hydrated || !auth.user;
 
   return (
     <>
@@ -87,7 +90,11 @@ export function CheckoutView() {
       </div>
 
       <div className="px-4 py-6 md:px-12 md:py-10">
-        {success ? (
+        {awaitingAuth ? (
+          <div className="text-center py-16 text-[14px]" style={{ color: "#7A7185" }}>
+            Verificando tu sesión…
+          </div>
+        ) : success ? (
           <CheckoutSuccess orderId={success.orderId} eta={success.eta} items={success.items} total={success.total} />
         ) : isEmpty ? (
           <CheckoutEmpty />

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/components/auth/AuthProvider";
 import { CartProvider } from "@/components/cart/CartProvider";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { FavoritesProvider } from "@/components/favorites/FavoritesProvider";
@@ -62,17 +63,19 @@ export default function RootLayout({
         <a href="#main" className="pro-skip">
           Saltar al contenido
         </a>
-        <CartProvider>
-          <FavoritesProvider>
-            <Header />
-            <main id="main" className="flex-1">
-              {children}
-            </main>
-            <Footer />
-            <MobileTabBar />
-            <CartDrawer />
-          </FavoritesProvider>
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <FavoritesProvider>
+              <Header />
+              <main id="main" className="flex-1">
+                {children}
+              </main>
+              <Footer />
+              <MobileTabBar />
+              <CartDrawer />
+            </FavoritesProvider>
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );
