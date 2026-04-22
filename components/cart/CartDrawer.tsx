@@ -1,15 +1,18 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useId, useRef } from "react";
 import Link from "next/link";
 import { ProductArt } from "@/components/atoms/ProductArt";
 import { IconArrow, IconCart, IconClose, IconMinus, IconPlus } from "@/components/atoms/Icon";
 import { getProduct } from "@/lib/data/products";
 import { fmtPrice } from "@/lib/format";
 import { useCart } from "./useCart";
+import { useFocusTrap } from "./useFocusTrap";
 
 export function CartDrawer() {
   const cart = useCart();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
 
   useEffect(() => {
     if (!cart.open) return;
@@ -25,18 +28,28 @@ export function CartDrawer() {
     };
   }, [cart]);
 
+  useFocusTrap(dialogRef, cart.open);
+
   if (!cart.open) return null;
 
   return (
     <div className="fixed inset-0 z-50">
       <div
         onClick={() => cart.setOpen(false)}
-        style={{ position: "absolute", inset: 0, background: "rgba(26,19,32,0.4)", backdropFilter: "blur(2px)" }}
-        aria-hidden
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(26,19,32,0.4)",
+          backdropFilter: "blur(2px)",
+          cursor: "pointer",
+        }}
       />
       <div
+        ref={dialogRef}
         role="dialog"
-        aria-label="Carrito"
+        aria-modal="true"
+        aria-labelledby={titleId}
         style={{
           position: "absolute",
           top: 0,
@@ -70,7 +83,7 @@ export function CartDrawer() {
             >
               Tu pedido
             </div>
-            <div className="pro-serif" style={{ fontSize: 24, color: "#1A1320" }}>
+            <div id={titleId} className="pro-serif" style={{ fontSize: 24, color: "#1A1320" }}>
               Carrito ({cart.count})
             </div>
           </div>

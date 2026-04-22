@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useId, useRef } from "react";
 import { IconClose } from "@/components/atoms/Icon";
+import { useFocusTrap } from "@/components/cart/useFocusTrap";
 import type { ReactNode } from "react";
 
 interface Props {
@@ -14,6 +15,9 @@ interface Props {
 }
 
 export function FilterDrawer({ open, onClose, onApply, onReset, resultCount, children }: Props) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+
   useEffect(() => {
     if (!open) return;
     const prev = document.body.style.overflow;
@@ -27,6 +31,8 @@ export function FilterDrawer({ open, onClose, onApply, onReset, resultCount, chi
       window.removeEventListener("keydown", onKey);
     };
   }, [open, onClose]);
+
+  useFocusTrap(dialogRef, open);
 
   if (!open) return null;
 
@@ -43,8 +49,10 @@ export function FilterDrawer({ open, onClose, onApply, onReset, resultCount, chi
         aria-hidden
       />
       <div
+        ref={dialogRef}
         role="dialog"
-        aria-label="Filtros"
+        aria-modal="true"
+        aria-labelledby={titleId}
         style={{
           position: "absolute",
           top: 0,
@@ -61,7 +69,7 @@ export function FilterDrawer({ open, onClose, onApply, onReset, resultCount, chi
           className="flex items-center justify-between"
           style={{ padding: "20px 24px", borderBottom: "1px solid var(--pro-line)" }}
         >
-          <div className="pro-serif text-[22px]" style={{ color: "#1A1320" }}>
+          <div id={titleId} className="pro-serif text-[22px]" style={{ color: "#1A1320" }}>
             Filtros
           </div>
           <button

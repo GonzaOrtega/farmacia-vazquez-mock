@@ -13,8 +13,11 @@ export function Icon({
   fill = "none",
   sw = 1.6,
   children,
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
   ...rest
 }: IconProps & { children: React.ReactNode }) {
+  const labeled = Boolean(ariaLabel ?? ariaLabelledBy);
   return (
     <svg
       width={size}
@@ -25,6 +28,11 @@ export function Icon({
       strokeWidth={sw}
       strokeLinecap="round"
       strokeLinejoin="round"
+      role={labeled ? "img" : undefined}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
+      aria-hidden={labeled ? undefined : true}
+      focusable={labeled ? undefined : "false"}
       {...rest}
     >
       {children}

@@ -41,9 +41,13 @@ export function Header() {
           <span className="inline-flex items-center gap-1.5">
             <IconPin size={13} /> Av. Balbín 4702, San Miguel
           </span>
-          <span>|</span>
-          <span className="cursor-pointer">Ayuda</span>
-          <span className="cursor-pointer">Seguimiento de pedido</span>
+          <span aria-hidden="true">|</span>
+          <a href="#" className="cursor-pointer no-underline text-white">
+            Ayuda
+          </a>
+          <a href="#" className="cursor-pointer no-underline text-white">
+            Seguimiento de pedido
+          </a>
         </div>
       </div>
 
@@ -85,6 +89,7 @@ export function Header() {
           </Link>
           <Link
             href="/favoritos"
+            aria-label={favLabel(fav.count)}
             className="pro-btn pro-btn-ghost flex-col gap-0.5 no-underline relative"
             style={{ padding: "10px 14px", fontSize: 11 }}
           >
@@ -92,6 +97,7 @@ export function Header() {
               <IconHeart size={18} stroke={fav.count > 0 ? "#C2185B" : undefined} fill={fav.count > 0 ? "#C2185B" : "none"} />
               {fav.count > 0 && (
                 <span
+                  aria-hidden="true"
                   style={{
                     position: "absolute",
                     top: -6,
@@ -114,15 +120,17 @@ export function Header() {
           <button
             type="button"
             onClick={() => cart.setOpen(true)}
+            aria-label={cartLabel(cart.count)}
             className="pro-btn pro-btn-primary"
             style={{ padding: "10px 18px" }}
           >
             <span key={cart.bump} className={cart.bump ? "pro-bump" : ""} style={{ display: "inline-flex" }}>
               <IconCart size={18} />
             </span>
-            Carrito
+            <span aria-hidden="true">Carrito</span>
             {cart.count > 0 && (
               <span
+                aria-hidden="true"
                 style={{
                   background: "#CDDC39",
                   color: "#1A1320",
@@ -159,7 +167,9 @@ export function Header() {
         <button
           type="button"
           onClick={() => setMobileNavOpen((v) => !v)}
-          aria-label="Menú"
+          aria-label={mobileNavOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={mobileNavOpen}
+          aria-controls="mobile-nav"
           className="bg-transparent border-none cursor-pointer text-[color:var(--pro-ink)]"
         >
           <IconMenu size={22} />
@@ -171,13 +181,14 @@ export function Header() {
         </div>
         <Link
           href="/favoritos"
-          aria-label="Favoritos"
+          aria-label={favLabel(fav.count)}
           className="cursor-pointer text-[color:var(--pro-ink)] relative no-underline"
           style={{ display: "inline-flex" }}
         >
           <IconHeart size={20} stroke={fav.count > 0 ? "#C2185B" : undefined} fill={fav.count > 0 ? "#C2185B" : "none"} />
           {fav.count > 0 && (
             <span
+              aria-hidden="true"
               style={{
                 position: "absolute",
                 top: -4,
@@ -197,7 +208,7 @@ export function Header() {
         <button
           type="button"
           onClick={() => cart.setOpen(true)}
-          aria-label="Carrito"
+          aria-label={cartLabel(cart.count)}
           className="bg-transparent border-none cursor-pointer text-[color:var(--pro-ink)] relative"
         >
           <span key={cart.bump} className={cart.bump ? "pro-bump" : ""} style={{ display: "inline-flex" }}>
@@ -205,6 +216,7 @@ export function Header() {
           </span>
           {cart.count > 0 && (
             <span
+              aria-hidden="true"
               style={{
                 position: "absolute",
                 top: -4,
@@ -239,7 +251,7 @@ export function Header() {
 
       {/* Mobile category drawer */}
       {mobileNavOpen && (
-        <div className="md:hidden border-b border-[color:var(--pro-line)] bg-white">
+        <div id="mobile-nav" className="md:hidden border-b border-[color:var(--pro-line)] bg-white">
           <div className="flex flex-col py-2">
             {categories.map((c) => (
               <Link
@@ -254,6 +266,20 @@ export function Header() {
           </div>
         </div>
       )}
+
+      <div aria-live="polite" aria-atomic="true" className="pro-sr-only">
+        {cart.count > 0 ? `${cart.count} producto${cart.count === 1 ? "" : "s"} en el carrito` : ""}
+      </div>
     </header>
   );
+}
+
+function cartLabel(count: number) {
+  if (count === 0) return "Carrito, vacío";
+  return `Carrito, ${count} producto${count === 1 ? "" : "s"}`;
+}
+
+function favLabel(count: number) {
+  if (count === 0) return "Favoritos, lista vacía";
+  return `Favoritos, ${count} producto${count === 1 ? "" : "s"} guardado${count === 1 ? "" : "s"}`;
 }

@@ -5,6 +5,7 @@ import {
   IconCart,
   IconCheck,
   IconHeart,
+  IconInfo,
   IconMinus,
   IconPlus,
   IconRx,
@@ -99,9 +100,7 @@ export function BuyBlock({ p }: Props) {
           color: lowStock ? "#C2185B" : "#046B3A",
         }}
       >
-        <span
-          style={{ width: 6, height: 6, background: "currentColor", borderRadius: 999 }}
-        />
+        {lowStock ? <IconInfo size={13} /> : <IconCheck size={13} />}
         {p.stock}
       </div>
 

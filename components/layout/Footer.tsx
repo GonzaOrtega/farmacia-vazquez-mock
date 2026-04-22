@@ -26,16 +26,22 @@ export function Footer() {
             Tu farmacia de confianza en San Miguel. Medicamentos, dermocosmética y cuidado personal — con envíos en el día.
           </p>
           <div className="flex gap-2.5 mt-3.5">
-            {[<IconInstagram key="ig" size={16} />, <IconWhatsapp key="wa" size={16} />, <IconChat key="ch" size={16} />].map(
-              (ic, i) => (
-                <a
-                  key={i}
-                  className="w-[34px] h-[34px] rounded-lg bg-white/10 grid place-items-center text-white cursor-pointer"
-                >
-                  {ic}
-                </a>
-              ),
-            )}
+            {(
+              [
+                ["Instagram", <IconInstagram key="ig" size={16} />],
+                ["WhatsApp", <IconWhatsapp key="wa" size={16} />],
+                ["Chat", <IconChat key="ch" size={16} />],
+              ] as const
+            ).map(([label, ic]) => (
+              <a
+                key={label}
+                href="#"
+                aria-label={label}
+                className="w-[34px] h-[34px] rounded-lg bg-white/10 grid place-items-center text-white cursor-pointer"
+              >
+                {ic}
+              </a>
+            ))}
           </div>
         </div>
         <FooterColumn title="Tienda" items={TIENDA} />
@@ -77,11 +83,18 @@ function FooterColumn({ title, items }: { title: string; items: string[] }) {
       <div className="text-[11px] font-bold uppercase tracking-[0.1em] text-[#CDDC39] mb-3">
         {title}
       </div>
-      {items.map((l) => (
-        <div key={l} className="text-[13px] opacity-80 py-1 cursor-pointer">
-          {l}
-        </div>
-      ))}
+      <ul className="list-none p-0 m-0">
+        {items.map((l) => (
+          <li key={l}>
+            <a
+              href="#"
+              className="block text-[13px] opacity-80 hover:opacity-100 py-1 cursor-pointer no-underline text-white"
+            >
+              {l}
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

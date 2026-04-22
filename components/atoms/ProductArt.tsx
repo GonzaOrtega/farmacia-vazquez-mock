@@ -65,8 +65,18 @@ export function ProductArt({
       </g>
     ),
   };
+  const decorative = !name;
+  const label = decorative ? undefined : `${brand ? brand + " " : ""}${name}`.trim();
   return (
-    <svg width={width} height={height} viewBox="0 0 160 200" aria-label={name}>
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 160 200"
+      role={decorative ? undefined : "img"}
+      aria-label={label}
+      aria-hidden={decorative ? true : undefined}
+      focusable={decorative ? "false" : undefined}
+    >
       {shapes[kind]}
       <text
         x="80"
