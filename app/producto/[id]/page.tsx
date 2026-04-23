@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductDetailView } from "@/components/pages/ProductDetailView";
+import { ProductJsonLd } from "@/components/seo/ProductJsonLd";
 import { getProduct, products } from "@/lib/data/products";
 
 interface PageProps {
@@ -38,5 +39,10 @@ export default async function ProductPage({ params }: PageProps) {
   const { id } = await params;
   const p = getProduct(id);
   if (!p) notFound();
-  return <ProductDetailView p={p} />;
+  return (
+    <>
+      <ProductJsonLd product={p} />
+      <ProductDetailView p={p} />
+    </>
+  );
 }
