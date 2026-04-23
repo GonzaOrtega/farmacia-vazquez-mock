@@ -7,6 +7,7 @@ import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { IconCart, IconClose, IconFilter } from "@/components/atoms/Icon";
 import { FilterDrawer } from "@/components/filters/FilterDrawer";
 import { FilterPanel } from "@/components/filters/FilterPanel";
+import { ShareFilterButton } from "@/components/filters/ShareFilterButton";
 import { useProductFilters, PRICE_MAX_DEFAULT, type SortKey } from "@/components/filters/useProductFilters";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { categories, getCategory } from "@/lib/data/categories";
@@ -176,6 +177,7 @@ export function ProductListView({ cat }: Props) {
                 onRemove={() => f.setRxMode("all")}
               />
             )}
+            <ShareFilterButton />
             <button
               type="button"
               onClick={f.reset}

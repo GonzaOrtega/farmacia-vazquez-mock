@@ -177,3 +177,10 @@ export const IconChevronRight = (p: IconProps) => (
     <path d="M9 18l6-6-6-6" />
   </Icon>
 );
+export const IconShare = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7" />
+    <path d="M16 6l-4-4-4 4" />
+    <path d="M12 2v14" />
+  </Icon>
+);
