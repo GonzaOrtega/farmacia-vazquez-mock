@@ -28,5 +28,32 @@ export default defineConfig({
     // Keep Playwright e2e specs out of the Vitest run — they need a real
     // browser + running server, not jsdom.
     exclude: ["**/node_modules/**", "**/dist/**", "**/.next/**", "e2e/**"],
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html", "lcov"],
+      include: ["app/**", "components/**", "lib/**"],
+      exclude: [
+        "**/*.test.*",
+        "**/*.spec.*",
+        "**/*.d.ts",
+        "app/**/layout.tsx",
+        "app/**/opengraph-image.tsx",
+        "app/**/twitter-image.tsx",
+        "app/sitemap.ts",
+        "app/robots.ts",
+      ],
+      // Thresholds track the current baseline (Dec 2025: ~47/39/37/47).
+      // Purpose: prevent *regression* of covered code — not to drive the
+      // number higher. Tighten as new test surfaces land (next plan:
+      // ProductCard, section layouts, FilterPanel). Loose branches is
+      // expected — we have many short-circuit guards that would need
+      // contrived tests to exercise both arms.
+      thresholds: {
+        statements: 45,
+        branches: 35,
+        functions: 35,
+        lines: 45,
+      },
+    },
   },
 });
