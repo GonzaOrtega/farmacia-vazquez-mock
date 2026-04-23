@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { ProductListView } from "@/components/pages/ProductListView";
 import { categories, getCategory } from "@/lib/data/categories";
 
@@ -33,5 +34,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function CategoryPage({ params }: PageProps) {
   const { cat } = await params;
   if (!getCategory(cat)) notFound();
-  return <ProductListView cat={cat} />;
+  return (
+    <Suspense fallback={null}>
+      <ProductListView cat={cat} />
+    </Suspense>
+  );
 }

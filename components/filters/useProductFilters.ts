@@ -1,6 +1,12 @@
 "use client";
 
-import { useMemo, useReducer } from "react";
+import { useEffect, useMemo, useReducer, useRef } from "react";
+import {
+  usePathname,
+  useRouter,
+  useSearchParams,
+  type ReadonlyURLSearchParams,
+} from "next/navigation";
 import { products } from "@/lib/data/products";
 import type { Product } from "@/types/product";
 
@@ -118,8 +124,103 @@ export function applyFilters(list: Product[], f: FilterState): Product[] {
   return out;
 }
 
+// ─── URL sync ─────────────────────────────────────────────────────────────────
+// Pure helpers: serialize state → query string, and parse query string → partial
+// state. Kept at module scope (no React) so they can be unit-tested as plain
+// functions and reused by category-chip Link hrefs.
+
+const SORT_KEYS: readonly SortKey[] = [
+  "relevance",
+  "price-asc",
+  "price-desc",
+  "rating",
+  "reviews",
+  "discount",
+];
+const RX_MODES: readonly RxMode[] = ["all", "otc", "rx"];
+
+export function serializeFilterParams(f: FilterState): string {
+  const sp = new URLSearchParams();
+  if (f.brands.length) sp.set("brands", f.brands.join(","));
+  if (f.priceMax < PRICE_MAX_DEFAULT) sp.set("priceMax", String(f.priceMax));
+  if (f.ratingMin > 0) sp.set("ratingMin", String(f.ratingMin));
+  if (f.rxMode !== "all") sp.set("rxMode", f.rxMode);
+  if (f.inStock) sp.set("inStock", "1");
+  if (f.onSale) sp.set("onSale", "1");
+  if (f.sort !== "relevance") sp.set("sort", f.sort);
+  return sp.toString();
+}
+
+export function parseFilterParams(
+  sp: URLSearchParams | ReadonlyURLSearchParams,
+): Partial<FilterState> {
+  const out: Partial<FilterState> = {};
+
+  const brands = sp.get("brands");
+  if (brands) {
+    const list = brands.split(",").map((s) => s.trim()).filter(Boolean);
+    if (list.length) out.brands = list;
+  }
+
+  const priceMax = Number(sp.get("priceMax"));
+  if (
+    Number.isFinite(priceMax) &&
+    priceMax >= PRICE_MIN_DEFAULT &&
+    priceMax <= PRICE_MAX_DEFAULT
+  ) {
+    out.priceMax = priceMax;
+  }
+
+  const ratingMin = Number(sp.get("ratingMin"));
+  if (Number.isFinite(ratingMin) && ratingMin > 0 && ratingMin <= 5) {
+    out.ratingMin = ratingMin;
+  }
+
+  const rxMode = sp.get("rxMode");
+  if (rxMode && (RX_MODES as readonly string[]).includes(rxMode)) {
+    out.rxMode = rxMode as RxMode;
+  }
+
+  if (sp.get("inStock") === "1") out.inStock = true;
+  if (sp.get("onSale") === "1") out.onSale = true;
+
+  const sort = sp.get("sort");
+  if (sort && (SORT_KEYS as readonly string[]).includes(sort)) {
+    out.sort = sort as SortKey;
+  }
+
+  return out;
+}
+
 export function useProductFilters(initialCat: string) {
-  const [state, dispatch] = useReducer(reducer, initialCat, defaultState);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Lazy initializer: parse URL exactly once on mount. Subsequent URL changes
+  // from our own router.replace must NOT re-hydrate state (that would create
+  // a sync loop). React's useReducer guarantees `init` runs once.
+  const [state, dispatch] = useReducer(reducer, initialCat, (cat) => ({
+    ...defaultState(cat),
+    ...parseFilterParams(searchParams),
+  }));
+
+  // state → URL sync, debounced 150ms so slider drags don't fire a replace per
+  // pixel. Skip the first render: the URL already matches initial state by
+  // construction, so replacing would be a no-op router call.
+  const isFirst = useRef(true);
+  useEffect(() => {
+    if (isFirst.current) {
+      isFirst.current = false;
+      return;
+    }
+    const qs = serializeFilterParams(state);
+    const url = qs ? `${pathname}?${qs}` : pathname;
+    const t = setTimeout(() => {
+      router.replace(url, { scroll: false });
+    }, 150);
+    return () => clearTimeout(t);
+  }, [state, pathname, router]);
 
   const result = useMemo(() => applyFilters(products, state), [state]);
   const activeCount = useMemo(() => activeFilterCount(state), [state]);

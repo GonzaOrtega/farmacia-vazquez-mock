@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Breadcrumb } from "@/components/layout/Breadcrumb";
 import { IconCart, IconClose, IconFilter } from "@/components/atoms/Icon";
@@ -26,9 +27,12 @@ const SORT_OPTIONS: Array<{ value: SortKey; label: string }> = [
 
 export function ProductListView({ cat }: Props) {
   const f = useProductFilters(cat);
+  const searchParams = useSearchParams();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const category = getCategory(cat);
   const catName = category?.name ?? "Todos los productos";
+  // Category chip hrefs carry current filters so switching categories preserves state.
+  const currentQs = searchParams.toString();
 
   const crumbs = [
     { label: "Inicio", href: "/" },
@@ -68,7 +72,8 @@ export function ProductListView({ cat }: Props) {
         <div className="pro-scroll flex gap-1.5 overflow-x-auto">
           {categories.map((c) => {
             const active = f.filters.cat === c.id;
-            const href = c.id === "all" ? "/productos" : `/productos/${c.id}`;
+            const base = c.id === "all" ? "/productos" : `/productos/${c.id}`;
+            const href = currentQs ? `${base}?${currentQs}` : base;
             return (
               <Link
                 key={c.id}

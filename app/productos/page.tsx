@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { ProductListView } from "@/components/pages/ProductListView";
 
 export const metadata: Metadata = {
@@ -14,5 +15,9 @@ export const metadata: Metadata = {
 };
 
 export default function ProductosPage() {
-  return <ProductListView cat="all" />;
+  return (
+    <Suspense fallback={null}>
+      <ProductListView cat="all" />
+    </Suspense>
+  );
 }
