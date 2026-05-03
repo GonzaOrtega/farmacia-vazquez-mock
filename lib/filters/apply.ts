@@ -1,4 +1,5 @@
 import type { Product } from "@/types/product";
+import { matchesQuery } from "@/lib/search/match";
 import type { FilterState, SortKey } from "./types";
 
 const comparators: Record<Exclude<SortKey, "relevance">, (a: Product, b: Product) => number> = {
@@ -19,12 +20,7 @@ export function applyFilters(list: Product[], f: FilterState): Product[] {
   if (f.rxMode === "rx") out = out.filter((p) => p.rx);
   if (f.onSale) out = out.filter((p) => p.old != null);
   if (f.inStock) out = out.filter((p) => !p.stock.toLowerCase().includes("receta"));
-  if (f.query.trim()) {
-    const q = f.query.toLowerCase();
-    out = out.filter(
-      (p) => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q),
-    );
-  }
+  if (f.query.trim()) out = out.filter((p) => matchesQuery(p, f.query));
 
   if (f.sort !== "relevance") out.sort(comparators[f.sort]);
   return out;

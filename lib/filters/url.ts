@@ -26,6 +26,8 @@ export function serializeFilterParams(f: FilterState): string {
   if (f.inStock) sp.set("inStock", "1");
   if (f.onSale) sp.set("onSale", "1");
   if (f.sort !== "relevance") sp.set("sort", f.sort);
+  const q = f.query.trim();
+  if (q) sp.set("q", q);
   return sp.toString();
 }
 
@@ -66,6 +68,9 @@ export function parseFilterParams(
   if (sort && (SORT_KEYS as readonly string[]).includes(sort)) {
     out.sort = sort as SortKey;
   }
+
+  const q = sp.get("q");
+  if (q && q.trim()) out.query = q.trim();
 
   return out;
 }
