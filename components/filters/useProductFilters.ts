@@ -41,6 +41,19 @@ export function useProductFilters(initialCat: string) {
     ...parseFilterParams(searchParams),
   }));
 
+  // External URL → state sync, narrowed to `query`. HeaderSearch (mounted in
+  // app/layout.tsx) navigates by router.push("/productos?q=…"); when the user
+  // is already on /productos that's a soft nav, so the reducer's lazy init
+  // does not re-run. We pick up the new q here. Convergence: dispatching
+  // setQuery triggers the state→URL effect below, which replaces with the
+  // same URL and the next pass of this effect sees urlQuery === state.query.
+  const urlQuery = (searchParams.get("q") ?? "").trim();
+  useEffect(() => {
+    if (urlQuery !== state.query) {
+      dispatch({ type: "setQuery", value: urlQuery });
+    }
+  }, [urlQuery, state.query]);
+
   // state → URL sync, debounced 150ms so slider drags don't fire a replace per
   // pixel. Skip the first render: the URL already matches initial state by
   // construction, so replacing would be a no-op router call.

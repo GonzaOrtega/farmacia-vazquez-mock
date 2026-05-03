@@ -9,7 +9,6 @@ import {
   IconHeart,
   IconMenu,
   IconPin,
-  IconSearch,
   IconTruck,
   IconUser,
 } from "@/components/atoms/Icon";
@@ -17,6 +16,7 @@ import { categories } from "@/lib/data/categories";
 import { useCart } from "@/components/cart/useCart";
 import { useFavorites } from "@/components/favorites/useFavorites";
 import { useAuth } from "@/components/auth/useAuth";
+import { HeaderSearch } from "@/components/layout/HeaderSearch";
 
 export function Header() {
   const cart = useCart();
@@ -69,23 +69,7 @@ export function Header() {
         <Link href="/" className="no-underline">
           <Logo size="md" />
         </Link>
-        <div className="relative flex-1 max-w-[640px]">
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[color:var(--pro-muted)]">
-            <IconSearch size={18} />
-          </div>
-          <input
-            placeholder="Buscá por medicamento, marca o condición — ej. ibuprofeno, protector solar…"
-            className="pro-input"
-            style={{ paddingLeft: 46, paddingRight: 120, borderRadius: 999, background: "#FAFAFB" }}
-          />
-          <button
-            type="button"
-            className="pro-btn pro-btn-primary absolute top-1 right-1"
-            style={{ padding: "8px 18px", fontSize: 13 }}
-          >
-            Buscar
-          </button>
-        </div>
+        <HeaderSearch variant="desktop" />
         <div className="flex items-center gap-1">
           <Link
             href={accountHref}
@@ -246,16 +230,7 @@ export function Header() {
 
       {/* Mobile search */}
       <div className="md:hidden px-4 py-2.5">
-        <div className="relative">
-          <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[color:var(--pro-muted)]">
-            <IconSearch size={16} />
-          </div>
-          <input
-            placeholder="¿Qué estás buscando?"
-            className="pro-input"
-            style={{ paddingLeft: 40, borderRadius: 999, background: "#FAFAFB", fontSize: 13 }}
-          />
-        </div>
+        <HeaderSearch variant="mobile" />
       </div>
 
       {/* Mobile category drawer */}

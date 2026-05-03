@@ -74,10 +74,18 @@ describe("serializeFilterParams", () => {
     expect(qs).toBe("brands=Bayer&priceMax=20000&rxMode=otc&onSale=1&sort=price-asc");
   });
 
-  it("does not include cat or query in the output", () => {
-    // cat lives in the URL path (/productos/[cat]); query has no UI binding.
-    const qs = serializeFilterParams(base({ cat: "capilar", query: "ibuprofeno" }));
-    expect(qs).toBe("");
+  it("does not include cat in the output (cat lives in the URL path /productos/[cat])", () => {
+    expect(serializeFilterParams(base({ cat: "capilar" }))).toBe("");
+  });
+
+  it("serializes query under the 'q' key, trimming whitespace", () => {
+    expect(serializeFilterParams(base({ query: "ibuprofeno" }))).toBe("q=ibuprofeno");
+    // Whitespace-only is treated as empty → omitted
+    expect(serializeFilterParams(base({ query: "   " }))).toBe("");
+    // URLSearchParams percent-encodes spaces as '+'
+    expect(serializeFilterParams(base({ query: "  protector solar  " }))).toBe(
+      "q=protector+solar",
+    );
   });
 });
 
@@ -139,6 +147,16 @@ describe("parseFilterParams", () => {
     expect(parseFilterParams(new URLSearchParams("sort=bogus"))).toEqual({});
   });
 
+  it("parses q into the query field, trimming whitespace; whitespace-only is dropped", () => {
+    expect(parseFilterParams(new URLSearchParams("q=ibuprofeno"))).toEqual({
+      query: "ibuprofeno",
+    });
+    expect(parseFilterParams(new URLSearchParams("q=%20%20protector%20%20"))).toEqual({
+      query: "protector",
+    });
+    expect(parseFilterParams(new URLSearchParams("q=%20%20%20"))).toEqual({});
+  });
+
   it("ignores unknown keys entirely (no crash, no noise in the result)", () => {
     expect(parseFilterParams(new URLSearchParams("utm_source=campaign&ref=friend"))).toEqual({});
   });
@@ -147,7 +165,7 @@ describe("parseFilterParams", () => {
 // ─── round-trip ───────────────────────────────────────────────────────────────
 
 describe("parseFilterParams ∘ serializeFilterParams is identity on synced fields", () => {
-  it("restores a composite state (brands + priceMax + rxMode + onSale + sort) exactly", () => {
+  it("restores a composite state (brands + priceMax + rxMode + onSale + sort + query) exactly", () => {
     const state = base({
       brands: ["Bayer", "Genomma"],
       priceMax: 20000,
@@ -156,9 +174,10 @@ describe("parseFilterParams ∘ serializeFilterParams is identity on synced fiel
       inStock: true,
       onSale: true,
       sort: "price-asc",
+      query: "protector",
     });
     const roundTripped = parseFilterParams(new URLSearchParams(serializeFilterParams(state)));
-    // Restricted to the seven synced fields — cat and query are intentionally excluded.
+    // Restricted to the eight synced fields — cat lives in the URL path.
     expect(roundTripped).toEqual({
       brands: ["Bayer", "Genomma"],
       priceMax: 20000,
@@ -167,6 +186,7 @@ describe("parseFilterParams ∘ serializeFilterParams is identity on synced fiel
       inStock: true,
       onSale: true,
       sort: "price-asc",
+      query: "protector",
     });
   });
 
