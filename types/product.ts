@@ -52,10 +52,3 @@ export interface Condition {
   sub: string;
 }
 
-export interface StaffMember {
-  id: string;
-  name: string;
-  role: string;
-  bg: string;
-  accent: string;
-}
