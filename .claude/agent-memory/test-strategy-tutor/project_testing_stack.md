@@ -1,6 +1,6 @@
 ---
 name: Testing stack decisions
-description: Chosen tools, file conventions, and mock patterns for the Farmacia Vázquez test suite
+description: Chosen tools, file conventions, and mock patterns for the Farmacia Vazquez test suite
 type: project
 ---
 

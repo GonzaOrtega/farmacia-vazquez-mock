@@ -51,8 +51,8 @@ describe("matchesQuery", () => {
   });
 
   it("matches against brand name (case-insensitive)", () => {
-    const p = fixture({ brand: "VÁZQUEZ LAB" });
-    expect(matchesQuery(p, "vázquez")).toBe(true);
+    const p = fixture({ brand: "VAZQUEZ LAB" });
+    expect(matchesQuery(p, "vazquez")).toBe(true);
     expect(matchesQuery(p, "lab")).toBe(true);
   });
 

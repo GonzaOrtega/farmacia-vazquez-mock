@@ -117,9 +117,9 @@ describe("applyFilters — query filter", () => {
   });
 
   it("matches against brand name (case-insensitive)", () => {
-    const result = applyFilters(products, base({ query: "vázquez" }));
+    const result = applyFilters(products, base({ query: "vazquez" }));
     expect(result.length).toBeGreaterThan(0);
-    expect(result.every((p) => p.brand.toLowerCase().includes("vázquez"))).toBe(true);
+    expect(result.every((p) => p.brand.toLowerCase().includes("vazquez"))).toBe(true);
   });
 
   it("returns empty array when query matches nothing", () => {

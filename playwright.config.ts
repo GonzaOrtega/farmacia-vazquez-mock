@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * Playwright configuration for Farmacia Vázquez.
+ * Playwright configuration for Farmacia Vazquez.
  *
  * E2E runs against the *production* build (`bun run start`) so what's tested
  * matches what users see, not the dev-server behavior. The `webServer` block

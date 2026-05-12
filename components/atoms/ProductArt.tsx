@@ -15,7 +15,7 @@ export function ProductArt({
   kind = "bottle",
   colorA = "#E8F4F8",
   colorB = "#5C1A6E",
-  brand = "VÁZQUEZ",
+  brand = "VAZQUEZ",
   name = "Producto",
   size = "L",
   width = 160,

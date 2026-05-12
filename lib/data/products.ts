@@ -1,7 +1,7 @@
 import type { Product } from "@/types/product";
 
 const BASE: Omit<Product, "short" | "long" | "ingredients" | "howTo" | "benefits" | "variants" | "warnings">[] = [
-  { id: "p1", cat: "dermocosmetica", name: "Sérum Hidratante", brand: "VÁZQUEZ LAB", price: 12990, old: 16200, art: "bottle", cA: "#F4EEF7", cB: "#5C1A6E", tag: "20% OFF", rating: 4.8, reviews: 124, rx: false, stock: "En stock", size: "30 ml" },
+  { id: "p1", cat: "dermocosmetica", name: "Sérum Hidratante", brand: "VAZQUEZ LAB", price: 12990, old: 16200, art: "bottle", cA: "#F4EEF7", cB: "#5C1A6E", tag: "20% OFF", rating: 4.8, reviews: 124, rx: false, stock: "En stock", size: "30 ml" },
   { id: "p2", cat: "capilar", name: "Shampoo Reparador", brand: "CAPILAR PRO", price: 8490, old: null, art: "bottle", cA: "#E8F4F8", cB: "#00A651", tag: null, rating: 4.6, reviews: 88, rx: false, stock: "En stock", size: "400 ml" },
   { id: "p3", cat: "maquillaje", name: "Labial Matte", brand: "BEAUTY 22", price: 5990, old: 7490, art: "tube", cA: "#FBEAF0", cB: "#C2185B", tag: "NUEVO", rating: 4.9, reviews: 212, rx: false, stock: "En stock", size: "4 g" },
   { id: "p4", cat: "medicamentos", name: "Ibuprofeno 400mg", brand: "GENÉRICO", price: 2450, old: null, art: "box", cA: "#EAF2F9", cB: "#1A4E8E", tag: null, rating: 4.7, reviews: 53, rx: false, stock: "En stock", size: "20 comp" },
@@ -12,7 +12,7 @@ const BASE: Omit<Product, "short" | "long" | "ingredients" | "howTo" | "benefits
   { id: "p9", cat: "capilar", name: "Mascarilla Nutritiva", brand: "CAPILAR PRO", price: 9990, old: null, art: "jar", cA: "#E8F6EE", cB: "#00A651", tag: "NUEVO", rating: 4.9, reviews: 41, rx: false, stock: "En stock", size: "250 ml" },
   { id: "p10", cat: "medicamentos", name: "Paracetamol 500mg", brand: "GENÉRICO", price: 1890, old: null, art: "box", cA: "#EAF2F9", cB: "#1A4E8E", tag: null, rating: 4.6, reviews: 120, rx: false, stock: "En stock", size: "30 comp" },
   { id: "p11", cat: "medicamentos", name: "Amoxicilina 500mg", brand: "GENÉRICO", price: 4290, old: null, art: "box", cA: "#EAF2F9", cB: "#1A4E8E", tag: null, rating: 4.8, reviews: 34, rx: true, stock: "Requiere receta", size: "16 cáps" },
-  { id: "p12", cat: "dermocosmetica", name: "Contorno de Ojos", brand: "VÁZQUEZ LAB", price: 11490, old: null, art: "tube", cA: "#F4EEF7", cB: "#5C1A6E", tag: "NUEVO", rating: 4.8, reviews: 15, rx: false, stock: "En stock", size: "15 ml" },
+  { id: "p12", cat: "dermocosmetica", name: "Contorno de Ojos", brand: "VAZQUEZ LAB", price: 11490, old: null, art: "tube", cA: "#F4EEF7", cB: "#5C1A6E", tag: "NUEVO", rating: 4.8, reviews: 15, rx: false, stock: "En stock", size: "15 ml" },
 ];
 
 type Extra = Pick<Product, "short" | "long" | "ingredients" | "howTo" | "benefits" | "variants" | "warnings">;

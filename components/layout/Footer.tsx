@@ -70,7 +70,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10 mt-9 pt-4 flex flex-wrap justify-between gap-3 text-[11px] opacity-55">
-        <div>© 2026 Farmacia Vázquez · Farmacia habilitada RNE 11.284</div>
+        <div>© 2026 Farmacia Vazquez · Farmacia habilitada RNE 11.284</div>
         <div>Directora técnica: Sofía Martínez · M.N. 22.841</div>
       </div>
     </footer>

@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!p) return { title: "Producto" };
   const title = `${p.name} — ${p.brand}`;
   const description = p.short
-    ? `${p.short} · ${p.brand} en Farmacia Vázquez.`
-    : `${p.name} de ${p.brand} en Farmacia Vázquez. Envíos en el día.`;
+    ? `${p.short} · ${p.brand} en Farmacia Vazquez.`
+    : `${p.name} de ${p.brand} en Farmacia Vazquez. Envíos en el día.`;
   const url = `/producto/${p.id}`;
   return {
     title,

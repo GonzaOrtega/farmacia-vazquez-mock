@@ -5,11 +5,11 @@ import { ProductListView } from "@/components/pages/ProductListView";
 export const metadata: Metadata = {
   title: "Productos",
   description:
-    "Catálogo completo de Farmacia Vázquez: medicamentos, dermocosmética, perfumería, capilar, maquillaje, cuidado personal y bebé.",
+    "Catálogo completo de Farmacia Vazquez: medicamentos, dermocosmética, perfumería, capilar, maquillaje, cuidado personal y bebé.",
   alternates: { canonical: "/productos" },
   openGraph: {
     title: "Catálogo de productos",
-    description: "Explorá todo el catálogo de Farmacia Vázquez.",
+    description: "Explorá todo el catálogo de Farmacia Vazquez.",
     url: "/productos",
   },
 };

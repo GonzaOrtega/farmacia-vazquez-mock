@@ -48,7 +48,7 @@ export function Logo({ size = "md", onDark = false }: LogoProps) {
             fontStyle: "italic",
           }}
         >
-          Vázquez
+          Vazquez
         </div>
       </div>
     </div>

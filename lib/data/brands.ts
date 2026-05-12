@@ -1,5 +1,5 @@
 export const brands = [
-  "VÁZQUEZ LAB",
+  "VAZQUEZ LAB",
   "DERMOCARE",
   "CAPILAR PRO",
   "BEAUTY 22",

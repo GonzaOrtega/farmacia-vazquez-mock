@@ -654,7 +654,7 @@ function ClubBanner({ promo }: { promo: PromoBanner }) {
               className="pro-serif italic text-[22px]"
               style={{ color: "#fff" }}
             >
-              Club <span style={{ color: promo.accent }}>Vázquez</span>
+              Club <span style={{ color: promo.accent }}>Vazquez</span>
             </div>
             <div
               style={{

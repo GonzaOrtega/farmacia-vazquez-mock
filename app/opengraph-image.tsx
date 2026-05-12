@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Farmacia Vázquez — Tu farmacia de confianza en San Miguel";
+export const alt = "Farmacia Vazquez — Tu farmacia de confianza en San Miguel";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -47,7 +47,7 @@ export default async function Image() {
               fontFamily: "system-ui, sans-serif",
             }}
           >
-            FARMACIA VÁZQUEZ
+            FARMACIA VAZQUEZ
           </div>
         </div>
 

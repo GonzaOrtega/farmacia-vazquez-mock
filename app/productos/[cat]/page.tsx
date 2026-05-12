@@ -16,14 +16,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { cat } = await params;
   const c = getCategory(cat);
   if (!c) return { title: "Categoría" };
-  const description = `${c.name} en Farmacia Vázquez — ${c.desc}. Envíos en el día en San Miguel.`;
+  const description = `${c.name} en Farmacia Vazquez — ${c.desc}. Envíos en el día en San Miguel.`;
   const url = `/productos/${c.id}`;
   return {
     title: c.name,
     description,
     alternates: { canonical: url },
     openGraph: {
-      title: `${c.name} — Farmacia Vázquez`,
+      title: `${c.name} — Farmacia Vazquez`,
       description,
       url,
     },

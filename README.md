@@ -1,6 +1,6 @@
-# Farmacia Vázquez — Mock e-commerce
+# Farmacia Vazquez — Mock e-commerce
 
-A production-ready Next.js 16 port of the Farmacia Vázquez Landing PRO design — a Spanish-language pharmacy e-commerce site for a neighborhood shop in San Miguel, Buenos Aires.
+A production-ready Next.js 16 port of the Farmacia Vazquez Landing PRO design — a Spanish-language pharmacy e-commerce site for a neighborhood shop in San Miguel, Buenos Aires.
 
 Built from a Claude Design handoff bundle. The original was a static HTML prototype with side-by-side mobile/desktop frames on a design canvas; this port is a real responsive website.
 

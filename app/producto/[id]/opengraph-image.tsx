@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { getProduct, products } from "@/lib/data/products";
 import { fmtPrice } from "@/lib/format";
 
-export const alt = "Producto — Farmacia Vázquez";
+export const alt = "Producto — Farmacia Vazquez";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -206,7 +206,7 @@ export default async function Image({ params }: Props) {
               >
                 +
               </div>
-              <span style={{ fontWeight: 700, letterSpacing: "0.04em" }}>FARMACIA VÁZQUEZ</span>
+              <span style={{ fontWeight: 700, letterSpacing: "0.04em" }}>FARMACIA VAZQUEZ</span>
             </div>
           </div>
         </div>

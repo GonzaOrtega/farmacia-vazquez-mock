@@ -26,7 +26,7 @@ export function ProductJsonLd({ product }: { product: Product }) {
   const url = `${SITE_URL}/producto/${product.id}`;
   const image = `${SITE_URL}/producto/${product.id}/opengraph-image`;
   const description =
-    product.short ?? `${product.name} de ${product.brand} en Farmacia Vázquez.`;
+    product.short ?? `${product.name} de ${product.brand} en Farmacia Vazquez.`;
 
   const payload = {
     "@context": "https://schema.org",

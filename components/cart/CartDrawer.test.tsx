@@ -48,7 +48,7 @@ describe("CartDrawer", () => {
   });
 
   it("renders seeded items with +/- controls", async () => {
-    // p1 in the product data is "Sérum Hidratante" by VÁZQUEZ LAB.
+    // p1 in the product data is "Sérum Hidratante" by VAZQUEZ LAB.
     renderWithProviders(<OpenCart />, { cart: [{ id: "p1", qty: 2 }] });
     await screen.findByRole("dialog");
     expect(screen.getByText(/sérum hidratante/i)).toBeInTheDocument();

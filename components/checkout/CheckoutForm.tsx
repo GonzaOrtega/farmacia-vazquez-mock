@@ -241,7 +241,7 @@ export function CheckoutForm({ onSubmit, submitting }: Props) {
             </span>
             <div>
               <div className="font-semibold text-[14px]" style={{ color: "#1A1320" }}>
-                Farmacia Vázquez · Casa Central
+                Farmacia Vazquez · Casa Central
               </div>
               <div className="mt-0.5">Av. Presidente Arturo Illia 4702, San Miguel</div>
               <div className="mt-0.5" style={{ color: "#7A7185" }}>

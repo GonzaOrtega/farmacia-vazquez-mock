@@ -99,9 +99,9 @@ export const promoBanners: PromoBanner[] = [
   },
   {
     id: "club",
-    eyebrow: "Club Vázquez",
+    eyebrow: "Club Vazquez",
     badge: { text: "-10%", note: "siempre" },
-    title: ["Sumate al ", "Club Vázquez", "y ahorrá todo el año."],
+    title: ["Sumate al ", "Club Vazquez", "y ahorrá todo el año."],
     body: "Descuentos exclusivos, envío gratis en tu primer pedido y prioridad en ofertas. Gratis para vecinos.",
     ctaA: "Crear mi cuenta",
     ctaB: "Conocer beneficios",

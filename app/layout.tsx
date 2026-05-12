@@ -27,25 +27,25 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://farmacia-vazquez.e
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Farmacia Vázquez — Tu farmacia de confianza en San Miguel",
-    template: "%s — Farmacia Vázquez",
+    default: "Farmacia Vazquez — Tu farmacia de confianza en San Miguel",
+    template: "%s — Farmacia Vazquez",
   },
   description:
     "Medicamentos, dermocosmética, perfumería y cuidado personal. Envíos en el día en San Miguel. Farmacéuticos matriculados.",
-  applicationName: "Farmacia Vázquez",
+  applicationName: "Farmacia Vazquez",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "es_AR",
     url: "/",
-    siteName: "Farmacia Vázquez",
-    title: "Farmacia Vázquez — Tu farmacia de confianza en San Miguel",
+    siteName: "Farmacia Vazquez",
+    title: "Farmacia Vazquez — Tu farmacia de confianza en San Miguel",
     description:
       "Medicamentos, dermocosmética, perfumería y cuidado personal. Envíos en el día en San Miguel.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Farmacia Vázquez",
+    title: "Farmacia Vazquez",
     description:
       "Medicamentos, dermocosmética, perfumería y cuidado personal en San Miguel.",
   },

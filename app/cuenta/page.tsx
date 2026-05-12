@@ -3,7 +3,7 @@ import { AccountView } from "@/components/pages/AccountView";
 
 export const metadata: Metadata = {
   title: "Mi cuenta",
-  description: "Gestioná tu perfil, pedidos, direcciones y recetas en Farmacia Vázquez.",
+  description: "Gestioná tu perfil, pedidos, direcciones y recetas en Farmacia Vazquez.",
   alternates: { canonical: "/cuenta" },
   robots: { index: false, follow: false },
 };
